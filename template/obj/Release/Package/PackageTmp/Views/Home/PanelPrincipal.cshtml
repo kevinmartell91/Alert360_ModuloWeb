@@ -1,0 +1,315 @@
+﻿<html ng-app="mapsApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.14/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-resource.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+    <link rel="stylesheet" href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+    <script src="/Scripts/maps/map.js"></script>
+    <style type="text/css">
+        body {
+            background-image: url("/Images/bblearn_2011_bg.png");
+        }
+
+        #map {
+            height: 520px;
+            width: auto;
+            margin-left: 45px;
+        }
+
+        .infoWindowContent {
+            font-size: 14px !important;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        h2 {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+
+
+
+
+
+
+        table {
+            width: 90%;
+        }
+
+        thead, tbody, tr, td, th {
+            display: block;
+        }
+
+            tr:after {
+                content: ' ';
+                display: block;
+                visibility: hidden;
+                clear: both;
+            }
+
+            thead th {
+                height: 30px;
+                /*text-align: left;*/
+            }
+
+        tbody {
+            height: 330px;
+            overflow-y: auto;
+        }
+
+        thead {
+            /* fallback */
+        }
+
+
+            tbody td, thead th {
+                width: 33%;
+                float: left;
+            }
+    </style>
+
+</head>
+<body>
+
+     <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img  style="width: 70px; height: 70px;" src="http://i1378.photobucket.com/albums/ah112/Kevin_Martell/ic_launcher-web_zpscb73c9be.png">
+                
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <a class="navbar-brand" href="/Home/PanelPrincipal"><h2>Alert 360</h2></a>
+                    
+                    <li class="active"><a href="/Home/PanelPrincipal" ><h3><strong>Panel Principal </strong></h3></a></li>
+                     <li class="Dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h3><strong>Datos Estadísticos </strong><span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/graphics">Alertas</a></li>
+                        </ul>
+                    </li>
+<!--
+                    <li class="Dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h2><strong>Usuarios</strong><span class="caret"></span></h2></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/Usuarios">Listar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Buscar(Implementar)</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Cantidad de Alertas (grafica) </a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Home/UsuariosActivos">Conectados</a></li>
+                            <li><a href="/Home/UsuariosInactivos">Desconectados</a></li>
+                        </ul>
+                    </li>
+                   
+    -->
+                </ul>
+<!--
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+-->
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h3><strong>Alertas </strong><span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/Alertas">Lista Alertas</a></li>
+                           
+                        </ul>
+                    </li>
+
+                      <li class="Dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h3><strong>Usuarios</strong><span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/Usuarios">Listar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Home/UsuariosActivos">Conectados</a></li>
+                            <li><a href="/Home/UsuariosInactivos">Desconectados</a></li>
+                        </ul>
+                    </li>
+                    <li class="Dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h3><strong>Receptores </strong><span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/Receptores">Listar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Home/ReceptoresPorUsuario">Receptores por usuario</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="row" ng-controller="MapCtrl">
+
+
+        <div style="float: left; width: 65%;">
+
+          
+            <div class="row">
+                <div id="map"></div>
+
+            </div>
+        </div>
+
+
+        <div style="float: right; width: 31%;">
+            <div class="row">
+                <div>
+                    <table class="table-striped table-condensed cf">
+
+                        <thead class="cf">
+                            <tr>
+                                <th>Cod Alerta</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <!--
+                                                <th>Cod Alerta</th>
+                                                <th>Cod Usuario</th>
+                                                <th>Latitud</th>
+                                                <th>Longitud</th>
+                                                <th>Fecha</th>
+                                                <th>Huso Horario</th>
+                                                <th>Tipo</th>
+                                             -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="marker in markers | orderBy : 'CodAlerta'">
+
+                                <td><a href="#" ng-click="openInfoWindow($event, marker)">{{marker.CodAlerta}}</a></td>
+                                <td>{{marker.Fecha}}</td>
+                                <td>{{marker.Tipo}}</td>
+                                <!--
+
+                                                <td>{{alerta.CodAlerta}}</td>
+                                                <td>{{alerta.CodUsuario}}</td>
+                                                <td>{{alerta.Latitud}}</td>
+                                                <td>{{alerta.Logitud}}</td>
+                                                <td>{{alerta.Fecha}}</td>
+                                                <td>{{alerta.HusoHorario}}</td>
+                                                <td>{{alerta.Tipo}}</td>
+                                                <td></td>
+                                              -->
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+
+                </div>
+
+            </div>
+
+            <br />
+            <div style="display: inline-block; width: 400px; height: 2px; background-color: lightskyblue;">
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Codigo usuario:</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input value="{{user.CodUsuario}}" class="field left" readonly type="text" class="form-control" placeholder="Codigo de usuario">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>ID:</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input value="{{user.IDUsuario}}" readonly type="text" placeholder="ID de usuario">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Nombres:</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input value="{{user.Nombres}}" class="field left" readonly type="text" class="form-control" placeholder="Nombres de usuario">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Apellidos:</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input value="{{user.Apellidos}}" class="field left" readonly type="text" class="form-control" placeholder="Apellidos de usuario">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                      <!--<div class="col-md-2">
+                            <button class="btn btn-info" type="button">
+                                Activo  <span class="badge">{{user.Activo}}</span>
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-danger" type="button">
+                                Alertas  <span class="badge">{{user.Alertas}}</span>
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-success" type="button">
+                                Receptores  <span class="badge">{{user.Receptors}}</span>
+                            </button>
+                        </div>
+                    <br>-->
+                     </div>            
+                    <a href="#">Activo <span class="badge">{{user.Activo}}</span></a>
+                    <a href="#">Alertas <span class="badge">{{user.Alertas}}</span></a>
+                    <a href="#">Receptores <span class="badge">{{user.Receptors}}</span></a>
+                    
+
+
+
+                     </div>            
+                    
+                </div>
+
+
+            </div>
+        </div>
+</body>
+</html>

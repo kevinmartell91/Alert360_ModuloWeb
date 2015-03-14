@@ -1,0 +1,155 @@
+﻿<html ng-app="publicMapsApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.14/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-resource.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+
+    <link rel="stylesheet" href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
+
+
+    <script>
+        var app = angular.module('publicMapsApp', [])
+
+        app.controller('PublicMapCtrl', function ($scope, $location, $http) {
+   
+            $scope.jsons = [];
+            //var resultPromise = $http.get('http://localhost:1664/api/alertas?codalerta='+ @ViewBag.codalerta)
+            var resultPromise = $http.get('http://alert360-001-site1.smarterasp.net/api/alertas?codalerta='+ @ViewBag.codalerta);
+            //var resultPromise = $http.get('http://alert360-001-site1.smarterasp.net/api/alertas?codalerta=18')
+            resultPromise.success(function (data) {
+                $scope.jsons = data;
+       
+                var mapOptions = {
+                    zoom: 16,
+                    //center: new google.maps.LatLng(-12.054251, -77.042022),
+                    center: new google.maps.LatLng($scope.jsons.Latitud, $scope.jsons.Longitud),
+                    //mapTypeId: google.maps.MapTypeId.TERRAIN
+                }
+
+                $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+                $scope.markers = [];
+   
+                var infoWindow = new google.maps.InfoWindow();
+
+                var createMarker = function (info) {
+           
+                    var marker = new google.maps.Marker({
+                        animation: google.maps.Animation.DROP,
+                        map: $scope.map,
+                        position: new google.maps.LatLng(info.Latitud, info.Longitud),
+                        CodAlerta: "   Cod  :  " + info.CodAlerta,
+                        CodUsuario  : info.CodUsuario,
+                        Latitud     : info.Latitud,
+                        Longitud    : info.Longitud,
+                        Fecha       : info.Fecha,
+                        HusoHorario : info.HusoHorario,
+                        Tipo        : info.Tipo
+                    });
+           
+                    marker.content = '<div class="infoWindowContent">  Fecha : ' + info.Fecha + '<br>' +
+                                                                '    Usuario :  '  +info.CodUsuario + '<br>' +
+                                                                //'    Usuario :  ' + $scope.usuario +
+                                                                '    Tipo Alerta : ' + info.Tipo +
+                                                                '</div>';
+
+                    google.maps.event.addListener(marker, 'click', function () {
+                        //infoWindow.setContent('<h2> ' + marker.HusoHorario + '   Long : ' + marker.Longitud + ' - Lat : ' + marker.Latitud + '</h2>' + marker.content);
+                        infoWindow.setContent('<h2>Long : ' + marker.Longitud + ' - Lat : ' + marker.Latitud + '</h2>' + marker.content);
+                        infoWindow.open($scope.map, marker);
+                    });
+
+                    $scope.markers.push(marker);
+
+                }
+
+                //for (i = 0; i < $scope.jsons.length; i++) {
+                createMarker($scope.jsons);
+
+                //}
+       
+                $scope.openInfoWindow = function (e, selectedMarker) {
+                    var resultPromise = $http.get('http://alert360-001-site1.smarterasp.net/api/usuarios?CodUsuario=' + selectedMarker.CodUsuario)
+                    //var resultPromise = $http.get('http://localhost:1664/api/usuarios?codUsuario='+ selectedMarker.CodUsuario)          
+                    resultPromise.success(function (data) {
+                        $scope.user = data;
+                    });
+            
+                    e.preventDefault();
+                    google.maps.event.trigger(selectedMarker, 'click');
+                }
+
+       
+            })
+
+
+        })
+
+    </script>
+
+
+
+
+
+    <style type="text/css">
+        body {
+            background-image: url("/Images/bblearn_2011_bg.png");
+        }
+
+        #map {
+            height: 88%;
+            width: 90%;
+           // margin-left: 35px;
+            align="center"
+        }
+
+        .infoWindowContent {
+            font-size: 14px !important;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        h2 {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+    
+    </style>
+
+
+
+</head>
+<body>
+
+    <div align="center" class="row" ng-controller="PublicMapCtrl">
+
+
+
+        <br />
+        <div ng-repeat="marker in markers">
+            <td>
+                <a href="#" ng-click="openInfoWindow($event, marker)">
+                    <h2>En este lugar me sucedio un incidente, llamame. </h2>
+                </a>
+
+            </td>
+
+        </div>
+
+        <br />
+        <div id="map"></div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_9B3C50_alert360db" Class="alert360dbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SQL5013.Smarterasp.net;Initial Catalog=DB_9B3C50_alert360db;Persist Security Info=True;User ID=DB_9B3C50_alert360db_admin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DB_9B3C50_alert360dbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Administrador" Member="Administradors">
+    <Type Name="Administrador">
+      <Column Name="CodAdministrador" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Apellido" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="IDAdministrador" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Contrasena" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Activo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Alerta" Member="Alertas">
+    <Type Name="Alerta">
+      <Column Name="CodAlerta" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodUsuario" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Latitud" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Longitud" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="HusoHorario" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Tipo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Usuario_Alerta" Member="Usuario" ThisKey="CodUsuario" OtherKey="CodUsuario" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cliente" Member="Clientes">
+    <Type Name="Cliente">
+      <Column Name="CodCliente" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Apellido" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Receptor" Member="Receptors">
+    <Type Name="Receptor">
+      <Column Name="CodReceptor" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodUsuario" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CorreoElectronico" Type="System.String" DbType="VarChar(80)" CanBeNull="true" />
+      <Column Name="TelefonoUno" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TelefonoDos" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="TelefonoTres" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Association Name="Usuario_Receptor" Member="Usuario" ThisKey="CodUsuario" OtherKey="CodUsuario" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usuario" Member="Usuarios">
+    <Type Name="Usuario">
+      <Column Name="CodUsuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombres" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Apellidos" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IDUsuario" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Contrasena" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Activo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Usuario_Alerta" Member="Alertas" ThisKey="CodUsuario" OtherKey="CodUsuario" Type="Alerta" />
+      <Association Name="Usuario_Receptor" Member="Receptors" ThisKey="CodUsuario" OtherKey="CodUsuario" Type="Receptor" />
+    </Type>
+  </Table>
+</Database>

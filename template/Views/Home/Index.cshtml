@@ -1,0 +1,62 @@
+﻿<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-resource.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-route.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+
+
+<script>
+    var eventModule = angular.module("eventModule", []).config(function ($routeProvider, $locationProvider) {
+        //Path - it should be same as href link
+        $routeProvider.when('/Home/SplitPanel', { templateUrl: '/Templates/Talk.html', controller: 'eventController' });
+        $routeProvider.when('/Events/Speakers', { templateUrl: '/Templates/Speaker.html', controller: 'speakerController' });
+        $locationProvider.html5Mode(true);
+    });
+</script>
+<script src="/Scripts/Home/speakerController.js"></script>
+<script src="/Scripts/Home/eventcontroller.js"></script>
+
+<div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+
+            <a href="#" class="navbar-brand">Alert360</a>
+
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                <span class="icon-bar"></span>  <span class="icon-bar"></span>  <span class="icon-bar"></span>
+            </button>
+
+            <div class="collapse navbar-collapse navHeaderCollapse">
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="/Home/SplitPanel" class="selected">Panel Mapa</a>
+                    </li>
+                    <li><a href="/Home/alertas">Alertas</a>
+                    </li>
+
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Redes Sociales<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Twitter</a>
+                            </li>
+                            <li><a href="#">Facebook</a>
+                            </li>
+                            <li><a href="#">Google</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li><a href="#">Notas</a>
+                    </li>
+                    <li><a href="#">Contact us</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+

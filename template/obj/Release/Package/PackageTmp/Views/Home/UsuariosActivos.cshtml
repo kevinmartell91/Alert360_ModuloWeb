@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Usuarios Conectados 360</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <script src="http://code.angularjs.org/1.2.0-rc.3/angular.js"></script>
+    <script src="http://bazalt-cms.com/assets/ng-table/0.3.1/ng-table.js"></script>
+
+    <link rel="stylesheet" href="http://bazalt-cms.com/assets/ng-table/0.3.1/ng-table.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
+
+   
+
+    <style type="text/css">
+        body {
+            background-image: url("/Images/bblearn_2011_bg.png");
+        }
+    </style>
+    <script>
+        var app = angular.module('main', ['ngTable']).
+        controller('DemoCtrl', function ($scope, $http, $filter, ngTableParams) {
+            var resultPromise = $http.get('http://alert360-001-site1.smarterasp.net/api/usuarios')
+            //var resultPromise = $http.get('http://www.json-generator.com/api/json/get/cukURTplua?indent=2');
+            resultPromise.success(function (jsons) {
+
+                var data = jsons;
+
+
+                $scope.tableParams = new ngTableParams({
+                    page: 1,            // show first page
+                    count: 10,          // count per page
+                    sorting: {
+                        CodUsuario: 'asc'     // initial sorting
+                    }
+                }, {
+                    total: data.length, // length of data
+                    getData: function ($defer, params) {
+                        // use build-in angular filter
+                        var orderedData = params.sorting() ?
+                                            $filter('orderBy')(data, params.orderBy()) :
+                                            data;
+
+                        $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                });
+
+            })
+        });
+    </script>
+
+</head>
+
+<body ng-app="main" ng-controller="DemoCtrl">
+
+      <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img  style="width: 70px; height: 70px;" src="http://i1378.photobucket.com/albums/ah112/Kevin_Martell/ic_launcher-web_zpscb73c9be.png">
+                
+
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-4">
+                <ul class="nav navbar-nav">
+                    <a class="navbar-brand" href="/Home/PanelPrincipal"><h2>Alert 360</h2></a>
+                    
+                    <li><a href="/Home/PanelPrincipal" class="selected"><h3><strong>Panel Principal </strong></h3></a></li>
+                     <li class="Dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h3><strong>Datos Estadísticos </strong><span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/graphics">Alertas</a></li>
+                        </ul>
+                    </li>
+<!--
+                    <li class="Dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h2><strong>Usuarios</strong><span class="caret"></span></h2></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/Usuarios">Listar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Buscar(Implementar)</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Cantidad de Alertas (grafica) </a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Home/UsuariosActivos">Conectados</a></li>
+                            <li><a href="/Home/UsuariosInactivos">Desconectados</a></li>
+                        </ul>
+                    </li>
+                   
+    -->
+                </ul>
+<!--
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+-->
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h3><strong>Alertas </strong><span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/Alertas">Lista Alertas</a></li>
+                           
+                        </ul>
+                    </li>
+
+                      <li class="Dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h3><strong>Usuarios</strong><span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/Usuarios">Listar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Home/UsuariosActivos">Conectados</a></li>
+                            <li><a href="/Home/UsuariosInactivos">Desconectados</a></li>
+                        </ul>
+                    </li>
+                    <li class="Dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><h3><strong>Receptores </strong><span class="caret"></span></h3></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/Home/Receptores">Listar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/Home/ReceptoresPorUsuario">Receptores por usuario</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <h2>
+            <span class="label label-primary">Lista de Usuarios Conectados</span>
+            <!--<a data-toggle="modal" href="#agregarVoluntario" class="navbar-btn btn-danger btn pull-right">+</a>  -->
+            <button ng-click="tableParams.sorting({})" class="btn btn-danger pull-right">Quitar filtro</button>
+        </h2>
+
+        <!--<p><strong>Sorting:</strong> {{tableParams.sorting()|json}}-->
+        <br />
+        <table ng-table="tableParams" class="table-striped table-condensed cf" width="100%">
+            <tr ng-repeat="usuario in $data | filter: {Activo : '1'} ">
+            
+                <td data-title="'Cod.Usuario'" sortable="'CodUsuario'">
+                    {{usuario.CodUsuario}}
+                </td>
+                <td data-title="'ID Usuario'" sortable="'IDUsuario'">
+                    {{usuario.IDUsuario}}
+                </td>
+                <td data-title="'Nombres'" sortable="'Nombres'">
+                    {{usuario.Nombres}}
+                </td>
+                <td data-title="'Apellidos'" sortable="'Apellidos'">
+                    {{usuario.Apellidos}}
+                </td>
+                <td data-title="'Receptores'" sortable="'Receptors'">
+                    {{usuario.Receptors}}
+                </td>
+                <td data-title="'Alertas'" sortable="'Alertas'">
+                    {{usuario.Alertas}}
+                </td>
+                
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

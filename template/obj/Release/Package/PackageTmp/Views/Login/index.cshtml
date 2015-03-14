@@ -1,0 +1,118 @@
+﻿
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <title>Alerta 360 - Loigin</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <link href="Content/signin.css" rel="stylesheet">
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('#ingresar').click(postCredenciales);
+        });
+
+        function postCredenciales() {
+
+            var usuario = $("#txtUser").val();
+            var password = $("#txtPass").val();
+
+            var credenciales = {
+                "IDAdministrador": usuario,
+                "Contrasena": password
+            }
+
+            $.ajax({
+                type: "POST",
+                //url: "http://localhost:1664/api/administrador",
+                url: "http://alert360-001-site1.smarterasp.net/api/administrador",
+                data: JSON.stringify(credenciales),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response == "1") {
+
+                        window.location.href = "/Home/PanelPrincipal";
+
+                    }
+
+                    if (response == "0") {
+                        alert("Password incorrectos");
+
+                    }
+
+                    if (response == "-1") {
+                        alert("Usuario incorrecto");
+
+                    }
+
+
+                },
+                error: function (msg) {
+                    alert(msg);
+                }
+            });
+        }
+        $(function () {
+            $('#Button2').click(postAlertas);
+        });
+
+        function postAlertas() {
+            var alert = {
+                "CodUsuario": 1,
+                "Nombre": "kevin",
+                "CorreoElectronico": "kevinmartell91@gmail.com",
+                "TelefonoUno": 432143214,
+                "TelefonoDos": 43214312,
+                "TelefonoTres": 3214324
+            }
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:1664/api/receptores",
+                data: JSON.stringify(alert),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function () {
+                    // Play with response returned in JSON format
+                },
+                error: function () {
+                    alert(msg);
+                }
+            });
+        }
+    </script>
+   
+</head>
+<body>
+    
+    <div class="form-signin" align="center"  >
+        
+        <div >
+            <img class="img-responsive" style="width: 170px; height: auto;" src="http://i1378.photobucket.com/albums/ah112/Kevin_Martell/ic_launcher-web_zpscb73c9be.png">
+            <img  style="width: 25px; height: auto;" src="Images/univlogo.png">
+
+        </div>
+
+        <form class="form-signin" method="post">
+
+
+            <h3 class="form-signin-heading" align="center">Ingresar</h3>
+
+            <input id="txtUser" class="form-control" placeholder="ID Ususario" required="" autofocus="">
+            <br>
+            <input id="txtPass" type="password" class="form-control" placeholder="Contrasena" required="">
+            <br>
+            <input type="button" id="ingresar" value="Ingresar" onclick="postCredenciales" class="btn btn-lg btn-primary btn-block">
+    </div>
+
+
+
+
+
+
+</body>
+</html>

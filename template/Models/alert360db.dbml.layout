@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="alert360db">
+  <DataContextMoniker Name="/alert360dbDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f7c1e67f-2a5e-431d-b313-478e11f58221" absoluteBounds="6.625, 2.625, 2, 1.9631982421875003">
+      <DataClassMoniker Name="/alert360dbDataContext/Administrador" />
+      <nestedChildShapes>
+        <elementListCompartment Id="137df00d-145f-4a6f-8d0b-6964ac468dc6" absoluteBounds="6.64, 3.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a9da3154-05a2-43ab-89d8-0ff318813dea" absoluteBounds="3.375, 1.125, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/alert360dbDataContext/Alerta" />
+      <nestedChildShapes>
+        <elementListCompartment Id="62d71c6e-3aa1-4a1b-91a8-1943d02c73fe" absoluteBounds="3.39, 1.585, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1b29c873-5de4-43a9-a825-8476dd71d9c4" absoluteBounds="3.375, 4, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/alert360dbDataContext/Receptor" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e894c2e3-2d28-49a4-9362-f56e8784ffe2" absoluteBounds="3.39, 4.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3da488de-0cc0-4895-8b13-b74121fe5d8c" absoluteBounds="0.625, 2.625, 2, 1.9631982421874996">
+      <DataClassMoniker Name="/alert360dbDataContext/Usuario" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ef0297e6-54ad-4a68-b82b-909957d656ba" absoluteBounds="0.64, 3.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.625 : 2.95274983723958); (3.375 : 2.95274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/alert360dbDataContext/Usuario/Usuario_Alerta" />
+      <nodes>
+        <classShapeMoniker Id="3da488de-0cc0-4895-8b13-b74121fe5d8c" />
+        <classShapeMoniker Id="a9da3154-05a2-43ab-89d8-0ff318813dea" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.625 : 4.29409912109375); (3.375 : 4.29409912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/alert360dbDataContext/Usuario/Usuario_Receptor" />
+      <nodes>
+        <classShapeMoniker Id="3da488de-0cc0-4895-8b13-b74121fe5d8c" />
+        <classShapeMoniker Id="1b29c873-5de4-43a9-a825-8476dd71d9c4" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
